@@ -124,20 +124,20 @@ const Footer = () => {
               {[
                 {
                   icon: "fb",
-                  url: "https://www.facebook.com/profile.php?id=61567220077929",
+                 
                 },
                 {
                   icon: "instgm",
-                  url: "https://www.instagram.com/business.mariages.io/",
+                 
                 },
                 {
                   icon: "in",
-                  url: "https://www.linkedin.com/company/mariages-io/?viewAsMember=true",
+                 
                 },
-              ].map(({ icon, url }) => (
+              ].map(({ icon}) => (
                 <a
                   key={icon}
-                  href={url}
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
