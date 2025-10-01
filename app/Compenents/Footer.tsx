@@ -13,21 +13,19 @@ import {
 const Footer = () => {
   // Updated static content
   const aboutLinks = [
-    { name: "Notre histoire", link: "/histoire" },
-    { name: "Équipe", link: "/equipe" },
-    { name: "Mentions légales", link: "/mentions-legales" },
+    { name: "Notre histoire", link: "/" },
+   
   ];
 
   const services = [
-    { name: "Organisation de mariage", link: "/services/organisation" },
-    { name: "Décoration", link: "/services/decoration" },
-    { name: "Photographie", link: "/services/photographie" },
+    { name: "Menuiserie aluminium", link: "/services" },
+
   ];
 
   const realisations = [
-    { name: "Mariage de Sofia & Anis", link: "/realisations/sofia-anis" },
-    { name: "Cérémonie à Marrakech", link: "/realisations/marrakech" },
-    { name: "Mariage en bord de mer", link: "/realisations/plage" },
+    { name: "Pergolas", link: "/realisations" },
+    { name: "Portes et Fenetres", link: "/realisations" },
+    { name: "Accordeons", link: "/realisations" },
   ];
 
   return (
@@ -109,7 +107,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row md:flex-wrap gap-6 pb-5 border-b border-[#F6F3F2] md:justify-center">
             <span className="flex items-center gap-2 text-sm ">
               <Phone size={20} />
-              06 18 88 88 99
+              06 46 65 61 50
             </span>
             <span className="flex items-center gap-2 text-sm ">
               <Mail size={20} />
