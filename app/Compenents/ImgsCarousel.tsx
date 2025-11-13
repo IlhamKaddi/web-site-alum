@@ -157,7 +157,7 @@ const ImageCarousel: React.FC = () => {
       `}</style>
       
       {/* Image Container */}
-      <div className="relative h-[500px] overflow-hidden">
+      <div className="relative h-[800px] overflow-hidden">
         <Image
           key={`image-${currentIndex}`}
           src={currentItem.image}
@@ -168,7 +168,7 @@ const ImageCarousel: React.FC = () => {
         />
         
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
         
         {/* Text Content on Image */}
         <div className="absolute inset-0 flex flex-col justify-center items-center p-8 ">
@@ -188,7 +188,7 @@ const ImageCarousel: React.FC = () => {
           </div>
         </div>
         
-        {/* Navigation Buttons */}
+        {/* nav btns */}
         <button
           onClick={prevSlide}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-x-1 z-10 animate-slide-in-left"
