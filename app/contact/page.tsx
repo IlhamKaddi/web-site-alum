@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
 import Banner from "../Compenents/Banner";
-
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -58,7 +57,7 @@ export default function ContactSection() {
     <>
       <Banner title="Contacter nous " />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
@@ -72,8 +71,8 @@ export default function ContactSection() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Contact Block */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            {/* Contact Block ____________________________________________________________________________*/}
+            <div className=" rounded-2xl  p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Informations de Contact
               </h2>
@@ -131,125 +130,122 @@ export default function ContactSection() {
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Contact Form */}
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {/* Name + Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <input
-                      {...register("name")}
-                      placeholder="Nom & Prénom*"
-                      className={`w-full px-4 py-3 border ${
-                        errors.name ? "border-red-500" : "border-gray-300"
-                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
-                    />
-                    {errors.name && (
-                      <p className="text-sm text-red-500">
-                        {errors.name.message}
-                      </p>
-                    )}
-                  </div>
+            {/* Contact Form______________________________________________________________________ */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
-                  <div>
-                    <input
-                      {...register("email")}
-                      placeholder="Email*"
-                      className={`w-full px-4 py-3 border ${
-                        errors.email ? "border-red-500" : "border-gray-300"
-                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
-                    />
-                    {errors.email && (
-                      <p className="text-sm text-red-500">
-                        {errors.email.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Phone + Subject */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <input
-                      {...register("phone")}
-                      placeholder="Téléphone*"
-                      className={`w-full px-4 py-3 border ${
-                        errors.phone ? "border-red-500" : "border-gray-300"
-                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
-                    />
-                    {errors.phone && (
-                      <p className="text-sm text-red-500">
-                        {errors.phone.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <input
-                      {...register("subject")}
-                      placeholder="Sujet*"
-                      className={`w-full px-4 py-3 border ${
-                        errors.subject ? "border-red-500" : "border-gray-300"
-                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
-                    />
-                    {errors.subject && (
-                      <p className="text-sm text-red-500">
-                        {errors.subject.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Message */}
+              {/* Name + Email */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <textarea
-                    {...register("message")}
-                    placeholder="Message*"
-                    rows={5}
-                    className={`w-full px-4 py-3 border ${
-                      errors.message ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:ring-2 focus:ring-orange-500 resize-none`}
+                  <input
+                    {...register("name")}
+                    placeholder="Nom & Prénom*"
+                    className={`w-full px-4 py-3 border ${errors.name ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
                   />
-                  {errors.message && (
+                  {errors.name && (
                     <p className="text-sm text-red-500">
-                      {errors.message.message}
+                      {errors.name.message}
                     </p>
                   )}
                 </div>
 
-                {/* Submit */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-700 disabled:opacity-50"
-                >
-                  {isSubmitting ? "Envoi en cours..." : "ENVOYER"}
-                </button>
-
-                {/* Success Message */}
-                {submitStatus === "success" && (
-                  <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                    <p className="text-green-800 text-center font-medium">
-                      Message envoyé avec succès! Nous vous répondrons bientôt.
+                <div>
+                  <input
+                    {...register("email")}
+                    placeholder="Email*"
+                    className={`w-full px-4 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-red-500">
+                      {errors.email.message}
                     </p>
-                  </div>
-                )}
+                  )}
+                </div>
+              </div>
 
-                {/* Error Message */}
-                {submitStatus === "error" && (
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-red-800 text-center font-medium">
-                      Une erreur s’est produite. Réessayez plus tard.
+              {/* Phone + Subject */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <input
+                    {...register("phone")}
+                    placeholder="Téléphone*"
+                    className={`w-full px-4 py-3 border ${errors.phone ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
+                  />
+                  {errors.phone && (
+                    <p className="text-sm text-red-500">
+                      {errors.phone.message}
                     </p>
-                  </div>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    {...register("subject")}
+                    placeholder="Sujet*"
+                    className={`w-full px-4 py-3 border ${errors.subject ? "border-red-500" : "border-gray-300"
+                      } rounded-lg focus:ring-2 focus:ring-orange-500`}
+                  />
+                  {errors.subject && (
+                    <p className="text-sm text-red-500">
+                      {errors.subject.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Message */}
+              <div>
+                <textarea
+                  {...register("message")}
+                  placeholder="Message*"
+                  rows={5}
+                  className={`w-full px-4 py-3 border ${errors.message ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:ring-2 focus:ring-orange-500 resize-none`}
+                />
+                {errors.message && (
+                  <p className="text-sm text-red-500">
+                    {errors.message.message}
+                  </p>
                 )}
-              </form>
-            </div>
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-700 disabled:opacity-50"
+              >
+                {isSubmitting ? "Envoi en cours..." : "ENVOYER"}
+              </button>
+
+              {/* Success Message */}
+              {submitStatus === "success" && (
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-green-800 text-center font-medium">
+                    Message envoyé avec succès! Nous vous répondrons bientôt.
+                  </p>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {submitStatus === "error" && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-800 text-center font-medium">
+                    Une erreur s’est produite. Réessayez plus tard.
+                  </p>
+                </div>
+              )}
+            </form>
+
           </div>
         </div>
       </div>
 
-   
+
     </>
   );
 }
