@@ -10,7 +10,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const contactSchema = z.object({
   name: z.string().min(1, "Le nom est requis"),
   email: z.string().email("Email invalide"),
-  phone: z.string().min(1, "Le téléphone est requis"),
+phone: z
+    .string()
+    .regex(
+      /^(0(5|6|7)\d{8}|\+212(5|6|7)\d{8})$/,
+      "Numéro  invalide"
+    ),
   subject: z.string().min(1, "Le sujet est requis"),
   message: z.string().min(1, "Le message est requis"),
 });
