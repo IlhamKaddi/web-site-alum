@@ -1,41 +1,64 @@
 "use client";
-import React, { useState } from 'react';
 import Banner from "../Compenents/Banner";
 import WhatsappButton from "@/app/Compenents/WhatsappButton ";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-interface FormData {
-  nom: string;
-  email: string;
-  telephone: string;
-  societe: string;
-  prestation: string;
-  objet: string;
-  message: string;
-}
+
+export const devisSchema = z.object({
+  nom: z.string().min(1, "Nom obligatoire"),
+  email: z.string().email("Email invalide"),
+  telephone: z
+    .string()
+    .regex(
+      /^(0(5|6|7)\d{8}|\+212(5|6|7)\d{8})$/,
+      "Numéro invalide"
+    ),
+  societe: z.string().optional(),
+  prestation: z.string().min(1, "Choisissez une prestation"),
+  objet: z.string().optional(),
+  message: z.string().min(1, "Message obligatoire"),
+});
+
+export type DevisFormData = z.infer<typeof devisSchema>;
 
 const DevisForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    nom: '',
-    email: '',
-    telephone: '',
-    societe: '',
-    prestation: '',
-    objet: '',
-    message: ''
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting},
+    reset,
+  } = useForm<DevisFormData>({
+    resolver: zodResolver(devisSchema),
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const onSubmit = async (data: DevisFormData) => {
+    try {
+      const response = await fetch("https://formspree.io/f/xldzgpvq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Votre message a été envoyé avec succès !");
+        reset();
+      } else {
+        alert("Erreur d’envoi. Veuillez réessayer.");
+      }
+    } catch (error) {
+      console.error("erreur d'envoi:", error)
+      alert("Erreur réseau. Veuillez réessayer.");
+    }
   };
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    // Add your form submission logic here
-  };
+
+
+ 
 
   return (
     <>
@@ -87,28 +110,32 @@ const DevisForm: React.FC = () => {
 
           {/* Right Section - Form */}
           <div>
-            <div className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+
               {/* Row 1 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <input
                     type="text"
-                    name="nom"
                     placeholder="Nom & Prénom*"
-                    value={formData.nom}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#d4876f] focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-700 transition-colors"
+                    {...register("nom")}
+                    className="w-full px-0 py-3 border-b-2 border-gray-300 focus:border-[#d4876f]"
                   />
+                  {errors.nom && (
+                    <p className="text-red-500 text-sm">{errors.nom.message}</p>
+                  )}
                 </div>
+
                 <div>
                   <input
                     type="email"
-                    name="email"
                     placeholder="Email*"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#d4876f] focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-700 transition-colors"
+                    {...register("email")}
+                    className="w-full px-0 py-3 border-b-2 border-gray-300 focus:border-[#d4876f]"
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm">{errors.email.message}</p>
+                  )}
                 </div>
               </div>
 
@@ -117,21 +144,21 @@ const DevisForm: React.FC = () => {
                 <div>
                   <input
                     type="tel"
-                    name="telephone"
                     placeholder="Téléphone*"
-                    value={formData.telephone}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#d4876f] focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-700 transition-colors"
+                    {...register("telephone")}
+                    className="w-full px-0 py-3 border-b-2 border-gray-300 focus:border-[#d4876f]"
                   />
+                  {errors.telephone && (
+                    <p className="text-red-500 text-sm">{errors.telephone.message}</p>
+                  )}
                 </div>
+
                 <div>
                   <input
                     type="text"
-                    name="societe"
                     placeholder="Société"
-                    value={formData.societe}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#d4876f] focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-700 transition-colors"
+                    {...register("societe")}
+                    className="w-full px-0 py-3 border-b-2 border-gray-300 focus:border-[#d4876f]"
                   />
                 </div>
               </div>
@@ -140,17 +167,8 @@ const DevisForm: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <select
-                    name="prestation"
-                    value={formData.prestation}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#d4876f] focus:outline-none focus:ring-0 text-gray-500 bg-transparent appearance-none cursor-pointer transition-colors"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                      backgroundRepeat: 'no-repeat',
-                      backgroundPosition: 'right 0.5rem center',
-                      backgroundSize: '1.5em 1.5em',
-                      paddingRight: '2.5rem'
-                    }}
+                    {...register("prestation")}
+                    className="w-full px-0 py-3 border-b-2 border-gray-300 focus:border-[#d4876f] bg-transparent"
                   >
                     <option value="">Choisissez une prestation</option>
                     <option value="web">Développement Web</option>
@@ -158,15 +176,17 @@ const DevisForm: React.FC = () => {
                     <option value="design">Design</option>
                     <option value="consulting">Consulting</option>
                   </select>
+                  {errors.prestation && (
+                    <p className="text-red-500 text-sm">{errors.prestation.message}</p>
+                  )}
                 </div>
+
                 <div>
                   <input
                     type="text"
-                    name="objet"
                     placeholder="Objet"
-                    value={formData.objet}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#d4876f] focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-700 transition-colors"
+                    {...register("objet")}
+                    className="w-full px-0 py-3 border-b-2 border-gray-300 focus:border-[#d4876f]"
                   />
                 </div>
               </div>
@@ -174,25 +194,28 @@ const DevisForm: React.FC = () => {
               {/* Message */}
               <div>
                 <textarea
-                  name="message"
-                  placeholder="Message*"
-                  value={formData.message}
-                  onChange={handleChange}
                   rows={4}
-                  className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#d4876f] focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-700 resize-none transition-colors"
+                  placeholder="Message*"
+                  {...register("message")}
+                  className="w-full px-0 py-3 border-b-2 border-gray-300 focus:border-[#d4876f] resize-none"
                 ></textarea>
+                {errors.message && (
+                  <p className="text-red-500 text-sm">{errors.message.message}</p>
+                )}
               </div>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <div className="pt-4">
                 <button
-                  onClick={handleSubmit}
-                  className="px-12 py-3 border-2 border-[#2c3e50] text-[#2c3e50] font-medium rounded-sm hover:bg-[#2c3e50] hover:text-white transition-colors duration-300 cursor-pointer"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-12 py-3 border-2 border-[#2c3e50] text-[#2c3e50] font-medium rounded-sm hover:bg-[#2c3e50] hover:text-white transition"
                 >
-                  ENVOYER
+                  {isSubmitting ? "Envoi..." : "ENVOYER"}
                 </button>
               </div>
-            </div>
+            </form>
+
           </div>
         </div>
       </div>
