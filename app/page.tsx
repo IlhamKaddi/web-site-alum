@@ -12,7 +12,7 @@ import WhatsappButton from "@/app/Compenents/WhatsappButton ";
 
 export default function Home() {
   return (
-    <div className="bg-gradient-to-r from-[#f8f8f8] to-[#ffffff]">
+    <div className="">
    
       <ImageCarousel />
       <Presentation />

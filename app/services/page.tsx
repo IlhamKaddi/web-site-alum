@@ -28,7 +28,7 @@ export default function StaggeredCategories() {
   return (
     <div>
       <Banner title="Nos Services" />
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 p-8    [&>*:nth-child(4n)]:mt-16  mx-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 p-8    [&>*:nth-child(4n)]:mt-16 mx-auto md:mx-12">
       {categories.map((cat, index) => {
         const isRightCol = index % 2 === 1;
 

@@ -43,7 +43,7 @@ const DevisAcc: React.FC = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
+      <div className="relative z-10 flex items-center justify-center py-8 px-4">
         <div className="text-center max-w-2xl mx-auto">
           {/* Circular element with center dot */}
           <div className="mb-12 flex justify-center">

@@ -157,7 +157,7 @@ const ImageCarousel: React.FC = () => {
       `}</style>
       
       {/* Image Container */}
-      <div className="relative h-[800px] overflow-hidden">
+      <div className="relative h-[400px] md:h-[800px] overflow-hidden">
         <Image
           key={`image-${currentIndex}`}
           src={currentItem.image}
