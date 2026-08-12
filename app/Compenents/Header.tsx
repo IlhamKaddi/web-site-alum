@@ -43,7 +43,7 @@ const Header: React.FC = () => {
 
         <div className="flex items-center justify-between h-16">
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="max-lg:hidden md:flex space-x-8">
             {navigationItems.map((item) => (
               <Link
                 key={item.label}
